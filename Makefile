@@ -1,4 +1,4 @@
-STACK_NAME=awsdevday2023tokyo-sls-pure-java
+STACK_NAME=awsdevday2023tokyo-sls-pure-java-snapstart
 
 build:
 	mvn clean package

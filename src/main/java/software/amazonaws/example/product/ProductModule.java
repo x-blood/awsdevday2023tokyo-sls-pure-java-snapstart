@@ -7,7 +7,6 @@ import com.amazonaws.xray.interceptors.TracingInterceptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dagger.Module;
 import dagger.Provides;
-import software.amazon.awssdk.auth.credentials.EnvironmentVariableCredentialsProvider;
 import software.amazon.awssdk.core.SdkSystemSetting;
 import software.amazon.awssdk.core.client.config.ClientOverrideConfiguration;
 import software.amazon.awssdk.http.urlconnection.UrlConnectionHttpClient;
@@ -25,7 +24,6 @@ public class ProductModule {
   @Singleton
   public static DynamoDbClient dynamoDbClient() {
     return DynamoDbClient.builder()
-      .credentialsProvider(EnvironmentVariableCredentialsProvider.create())
       .region(Region.of(System.getenv(SdkSystemSetting.AWS_REGION.environmentVariable())))
       .overrideConfiguration(ClientOverrideConfiguration.builder()
         .addExecutionInterceptor(new TracingInterceptor())
