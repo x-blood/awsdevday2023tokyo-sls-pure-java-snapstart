@@ -29,10 +29,10 @@ filter @message like "REPORT"
 | filter @message like "Restore Duration"
 | parse @message "Restore Duration:* ms" as restoreTime
 | fields @duration + restoreTime as duration
-| stats count(*) as count, pct(duration, 50) as p50, pct(duration, 90) as p90, pct(duration, 99) as p99, max(duration) as max, avg(duration) as avg
+| stats count(*) as count, pct(duration, 50) as p50, pct(duration, 90) as p90, pct(duration, 99) as p99, max(duration) as max, avg(duration) as avg_Duration, avg(restoreTime) as avg_RestoreTime, avg(@maxMemoryUsed)
 ```
 ---
-| count | p50      | p90       | p99     | max     | avg      |
-|-------|----------|-----------|---------|---------|----------|
-| 200   | 970.2578 | 1063.7076 | 1194.47 | 1311.87 | 965.1371 |
+| count | p50      | p90       | p99     | max     | avg_Duration | avg_RestoreTime | avg(@maxMemoryUsed) |
+|-------|----------|-----------|---------|---------|--------------|-----------------|---------------------|
+| 200   | 970.2578 | 1063.7076 | 1194.47 | 1311.87 | 965.1371     | 277.0476        | 128010000           |
 ---
